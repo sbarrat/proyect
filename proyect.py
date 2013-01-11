@@ -142,16 +142,25 @@ class DynamicUser(QDialog):
     #Add a new experiment
     def addExperiment(self):
         if self.nameText.text() == "":
-            self.alertDialog("You must enter a experiment name");
+            self.alertDialog("Error", "You must enter a experiment name");
         else:
             if self.fileChooseText.text() != "":
-                self.alertDialog(self.fileChooseText.text() + self.nameText.text())
+                timeStep = self.timeStepSpinBox.value()
+                timeStepUnits = self.timeStepComboBox.currentText()
+                totalTime = self.totalTimeSpinBox.value()
+                totalTimeUnits = self.totalTimeComboBox.currentText()
+                fileName = self.fileChooseText.text();
+                experimentName = self.nameText.text();
+                resultLine = "File: %s\nExp Name: %s\n TimeStep: %i %s \n TotalTime: %i %s" \
+                % (fileName, experimentName, timeStep, timeStepUnits, totalTime, totalTimeUnits)
+                self.alertDialog("Result", resultLine)
             else:
                 self.setProfileFile()
              
     #Open a new dialog box, for testing purposes
-    def alertDialog(self, text):
+    def alertDialog(self, title, text):
         dialog = QDialog()
+        dialog.setWindowTitle(title)
         result = QLabel()
         result.setText(text)
         layout = QBoxLayout(QBoxLayout.LeftToRight)
