@@ -1,0 +1,2 @@
+cd C:\Users\Miguel\Documents\Marta\workspaces\Ui_models
+pyuic4 -x Ui_Generator.ui -o Ui_Generator.py
