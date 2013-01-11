@@ -17,17 +17,21 @@ class DynamicUser(QDialog):
         
     #Top Section
     def topSection(self):
-        #Labels
+        #Label
         nameLabel = QLabel("Name:")
-        #Text
+        
+        #LineEdit
         self.nameText = QLineEdit()
+        
         #Buttons
         self.saveAddButton = QPushButton()
         self.saveAddButton.setText("Save / Add")
         self.cancelButton = QPushButton()
         self.cancelButton.setText("Cancel")
+        
         #Connect objects with signals
         self.connect(self.saveAddButton, SIGNAL("clicked()"), self.addExperiment)
+        
         #Group
         mainGroup = QGroupBox()
         #Layout
@@ -45,7 +49,7 @@ class DynamicUser(QDialog):
         fileChooseLabel = QLabel("Choose file of probability of presence:")
         timeStepLabel = QLabel("Time step:")
         totalTimeLabel = QLabel("Total time of simulation:")
-        #Inputs
+        #LineEdit
         self.fileChooseText = QLineEdit()
         #Buttons
         self.fileBrowseButton = QPushButton()
@@ -63,13 +67,16 @@ class DynamicUser(QDialog):
         
         #Connect objects with signals
         self.connect(self.fileBrowseButton, SIGNAL("clicked()"), self.setProfileFile)
+        
         #Main Group
         fileGroup = QGroupBox()
         fileGroup.setTitle("File")
+        
         #Layout
         fileLayout = QBoxLayout(QBoxLayout.TopToBottom)
         topFileLayout = QHBoxLayout()
         bottomFileLayout = QHBoxLayout()
+        
         #Top Layout
         topFileLayout.addWidget(fileChooseLabel)
         topFileLayout.addWidget(self.fileChooseText)
