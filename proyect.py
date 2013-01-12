@@ -1,7 +1,7 @@
 import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-
+import MarkovChain
 
 class DynamicUser(QDialog):
     def __init__(self,  parent = None):
@@ -144,7 +144,12 @@ class DynamicUser(QDialog):
     #Catch Browse file signal
     def setProfileFile(self):
         fileName = QFileDialog.getOpenFileName(self, "Select Profile File")
-        self.fileChooseText.setText(fileName)
+        if fileName == '':
+            self.alertDialog("Error", "You must select a file")
+        else:
+            markov = MarkovChain.MarkovChain()
+            self.pares = markov.Create_List_Pairs(fileName)
+            self.fileChooseText.setText(fileName)
     
     #Add a new experiment
     def addExperiment(self):
@@ -158,8 +163,8 @@ class DynamicUser(QDialog):
                 totalTimeUnits = self.totalTimeComboBox.currentText()
                 fileName = self.fileChooseText.text();
                 experimentName = self.nameText.text();
-                resultLine = "File: %s\nExp Name: %s\n TimeStep: %i %s \n TotalTime: %i %s" \
-                % (fileName, experimentName, timeStep, timeStepUnits, totalTime, totalTimeUnits)
+                resultLine = "File: %s\nExp Name: %s\n TimeStep: %i %s \n TotalTime: %i %s \n %s" \
+                % (fileName, experimentName, timeStep, timeStepUnits, totalTime, totalTimeUnits, self.pares)
                 self.alertDialog("Result", resultLine)
             else:
                 self.setProfileFile()
@@ -177,10 +182,10 @@ class DynamicUser(QDialog):
         dialog.exec_()
 
 #Launch the App        
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    form = DynamicUser()
-    form.show()
-    app.exec_()
+#if __name__ == "__main__":
+#    app = QApplication(sys.argv)
+#    form = DynamicUser()
+#    form.show()
+#    app.exec_()
         
         
